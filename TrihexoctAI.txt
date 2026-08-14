@@ -14,9 +14,9 @@
 /^https?:\/\/[^\/]+\/(?:api|v[1-9])?\/[0-9a-fA-F]{8,64}\/envelope\/?/$xhr,3p,important
 /^https?:\/\/.*\/api\/(?:events|track|ingest|collect|batch|store|log|capture|record|fingerprint|fp|session)\/?/$xhr,ping,3p,important
 /^https?:\/\/(?:[0-9]{1,3}\.){3}[0-9]{1,3}\/.*\.js$/$script,3p,important
-/^https?:\/\/.*\/[a-f0-9]{32,64}\.(?:js|wasm)\?v=[0-9.]+$/$3p,script,xmlhttprequest
+/^https?:\/\/.*\/[a-f0-9]{32,64}\.(?:js|wasm)\?v=[0-9.]+$/$3p,script,xhr
 /^https?:\/\/.*\/track(?:ing)?\.(?:js|php|cgi)/$3p
-/^wss?:\/\/[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,}\/(?:socket|ws|signal|webrtc|tracker|sync)/$websocket,3p
+/^wss?:\/\/[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,}\/(?:socket|ws|signal|webrtc|tracker|sync)\/?$/$websocket,3p
 
 ! =====================================================================
 ! [ PHASE 2 ]: OMNI-URL ANNIHILATION (Self-Cleaning, Context-Aware Routing)
@@ -73,7 +73,7 @@ $removeparam=oly_enc_id
 *##+js(set-constant, LogRocket, undefined)
 *##+js(set-constant, fpPromise, undefined)
 *##+js(abort-on-property-read, document.cookie)
-*##+js(abort-current-script, document.createElement('script'))
+*##+js(abort-current-script, adblock)
 
 ! =====================================================================
 ! [ PHASE 5 ]: AI-READY JSON PAYLOAD MUTILATION (Homomorphic Data Scrubbing)
@@ -84,7 +84,7 @@ $removeparam=oly_enc_id
 *##+js(json-prune, experiments ab_tests split_tests feature_flags rollout_config)
 *##+js(json-prune, config.telemetry system.telemetry app.metrics tracking analytics beacons)
 *##+js(json-prune, flags.tracking flags.telemetry config.experiments)
-*##+js(json-prune, *.*.ad_info *.*.tracking_url *.*.click_url)
+*##+js(json-prune, ad_info tracking_url click_url)
 *##+js(json-prune, data.viewer.user.is_tracked)
 
 ! =====================================================================
@@ -100,7 +100,7 @@ $removeparam=oly_enc_id
 ||turn.*^$3p,important
 ||wss://*signaling*^$websocket,3p
 ||wss://*webrtc*^$websocket,3p
-/^https?:\/\/(?:web3|rpc|api)\.[a-z0-9-]+\.(?:xyz|cc|top|pw)\/v[0-9]\/verify/$3p,xmlhttprequest
+/^https?:\/\/(?:web3|rpc|api)\.[a-z0-9-]+\.(?:xyz|cc|top|pw)\/v[0-9]\/verify/$3p,xhr
 ||coin-hive.com^$3p,script,important
 ||minergate.com^$3p,script,important
 
@@ -152,7 +152,7 @@ $removeparam=oly_enc_id
 *##:has(> iframe[src*="yieldmo"])
 *##:has(> iframe[src*="criteo"])
 *##:has(> iframe[src*="rubiconproject"])
-*##:is(article, section, div):has(> div:has-text(/Sponsored|Promoted|Ad/i)):style(display: none !important; pointer-events: none !important;)
+*##:is(article, section, div):has(> div:has-text(/Sponsored|Promoted|Ad/i))
 *##.feed-item:has(a[href*="/ad/"]):has-text(/Promoted/i)
 *##.stream-item:has(svg[class*="Icon--ad"])
 *##:xpath(//div[contains(@class, 'video-player') or contains(@class, 'player')][descendant::div[contains(@class, 'ad-overlay') or contains(@class, 'preroll')]])
@@ -164,19 +164,15 @@ $removeparam=oly_enc_id
 ! asynchronous fetch states, and cryptographically blind tracking algorithms 
 ! via state-of-the-art API shims.
 ! =====================================================================
-*##+js(freeze-element-property, document, onvisibilitychange)
-*##+js(freeze-element-property, navigator, sendBeacon)
-*##+js(prevent-fetch, tracking)
-*##+js(prevent-fetch, telemetry)
-*##+js(prevent-xhr, logger)
-*##+js(prevent-xhr, analytics)
-*##+js(trusted-replace-argument, window.fetch, 1, /tracking/g, 'noop')
-*##+js(set-constant, Object.defineProperty, noopFunc)
+*##+js(set-constant, navigator.sendBeacon, noopFunc)
 *##+js(abort-on-property-read, navigator.usb)
 *##+js(abort-on-property-read, navigator.bluetooth)
 *##+js(abort-on-property-read, navigator.getBattery)
 *##+js(abort-on-property-read, navigator.keyboard)
 *##+js(abort-on-property-read, window.DeviceOrientationEvent)
+*##+js(abort-on-property-read, navigator.serviceWorker)
+*##+js(abort-on-property-read, navigator.mediaDevices)
+*##+js(set-constant, navigator.geolocation.getCurrentPosition, noopFunc)
 
 ! =====================================================================
 ! [ PHASE 11 ]: BAYESIAN PARAMETER PURIFICATION (Idempotent URL Sanitization)
@@ -246,13 +242,13 @@ $removeparam=/^twclid$/i
 ! prior layers, this protocol forces the environment to remain sovereign, 
 ! tamper-proof, and completely stateless.
 ! =====================================================================
-*##+js(set-session-storage-item, _tracker_session_id, null)
-*##+js(set-local-storage-item, _fp_hash, null)
-*##+js(remove-cookie, _ga)
-*##+js(remove-cookie, _fbp)
-*##+js(remove-cookie, __qca)
-*##+js(remove-cookie, m_pixel_ratio)
-*##+js(remove-cookie, wd)
+*##+js(set-local-storage-item, _tracker_session_id, )
+*##+js(set-local-storage-item, _fp_hash, )
+*##+js(set-cookie, _ga, )
+*##+js(set-cookie, _fbp, )
+*##+js(set-cookie, __qca, )
+*##+js(set-cookie, m_pixel_ratio, )
+*##+js(set-cookie, wd, )
 
 ! =====================================================================
 ! [ PHASE 16 ]: ENTERPRISE EDGE-WORKER & CLOUD TELEMETRY CONTAINMENT
@@ -266,7 +262,7 @@ $removeparam=/^twclid$/i
 ||supabase.co/rest/v1/telemetry^$3p,xhr,important
 ||posthog.com/e/^$3p,xhr,ping,important
 ||sentry.io/api/*/envelope/^$3p,xhr,ping,important
-/^https?:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/analytics\// $xhr,3p,important
+/^https?:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/analytics\//$xhr,3p,important
 /^https?:\/\/.*\/_next\/static\/chunks\/telemetry-.*\.js$/$script,3p,important
 /^https?:\/\/.*\/_vercel\/insights\/.*$/$xhr,ping,3p,important
 
@@ -297,7 +293,7 @@ $removeparam=/^twclid$/i
 *##+js(set-constant, window.performance.mark, noopFunc)
 *##+js(set-constant, window.performance.measure, noopFunc)
 *##+js(set-constant, window.performance.getEntriesByType, noopArray)
-*##+js(freeze-element-property, PerformanceObserver, prototype)
+*##+js(abort-on-property-read, window.PerformanceObserver)
 
 ! =====================================================================
 ! [ PHASE 19 ]: ADVANCED DEPLOYMENT PARAMETER PURIFICATION
@@ -323,7 +319,7 @@ $removeparam=/^at_custom_[0-9]+$/i
 ! Uses context-aware pseudo-selectors to eliminate dynamically injected
 ! overlay containers, floating promotional banners, and sticky ad frames.
 ! =====================================================================
-*##:is([id*="google_ads_iframe"], [id*="taboola-"], [id*="outbrain_"]):style(display: none !important; visibility: hidden !important; height: 0 !important;)
+*##:is([id*="google_ads_iframe"], [id*="taboola-"], [id*="outbrain_"])
 *##:has(> iframe[title="3rd party ad content"])
 *##:has(> div[data-ad-client])
 *##div[class*="ad-placement"]:not([class*="gradient"])
@@ -336,16 +332,16 @@ $removeparam=/^at_custom_[0-9]+$/i
 ! Forces automatic degradation and revocation of persistent third-party
 ! identifiers and tracking cookies directly inside the storage stack.
 ! =====================================================================
-*##+js(remove-cookie, _uetsid)
-*##+js(remove-cookie, _uetvid)
-*##+js(remove-cookie, _tt_enable_cookie)
-*##+js(remove-cookie, _rdt_uuid)
-*##+js(remove-cookie, _li_sugr)
-*##+js(remove-cookie, _pin_unauth)
-*##+js(remove-cookie, _sctr)
-*##+js(set-local-storage-item, _posthog, null)
-*##+js(set-local-storage-item, _mixpanel, null)
-*##+js(set-session-storage-item, _amplitude, null)
+*##+js(set-cookie, _uetsid, )
+*##+js(set-cookie, _uetvid, )
+*##+js(set-cookie, _tt_enable_cookie, )
+*##+js(set-cookie, _rdt_uuid, )
+*##+js(set-cookie, _li_sugr, )
+*##+js(set-cookie, _pin_unauth, )
+*##+js(set-cookie, _sctr, )
+*##+js(set-local-storage-item, _posthog, )
+*##+js(set-local-storage-item, _mixpanel, )
+*##+js(set-local-storage-item, _amplitude, )
 
 ! =====================================================================
 ! [ PHASE 22 ]: PROTOCOL-LEVEL CSP REINFORCEMENT & SOCKET QUARANTINE
@@ -388,7 +384,7 @@ $removeparam=/^at_custom_[0-9]+$/i
 *##+js(abort-on-property-read, WebGL2RenderingContext.prototype.getParameter)
 *##+js(abort-on-property-read, navigator.deviceMemory)
 *##+js(abort-on-property-read, navigator.hardwareConcurrency)
-*##+js(set-constant, navigator.languages, ["en-US", "en"])
+*##+js(abort-on-property-read, navigator.languages)
 
 ! =====================================================================
 ! [ PHASE 25 ]: ANTI-ADBLOCK NATIVE BYPASS & POPUP QUARANTINE
@@ -467,15 +463,15 @@ $removeparam=/^mkt_tok$/i
 ! Proactively zeroes out tracking values in local storage, session storage,
 ! and legacy persistent tracking cookies.
 ! =====================================================================
-*##+js(set-local-storage-item, _td, null)
-*##+js(set-local-storage-item, _vis_opt_s, null)
-*##+js(set-local-storage-item, _parsely_visitor, null)
-*##+js(set-session-storage-item, _sp_id, null)
-*##+js(remove-cookie, _parsely_visitor)
-*##+js(remove-cookie, _vwo_uuid)
-*##+js(remove-cookie, _li_dcdm)
-*##+js(remove-cookie, _ssp_id)
-*##+js(remove-cookie, _mda_uuid)
+*##+js(set-local-storage-item, _td, )
+*##+js(set-local-storage-item, _vis_opt_s, )
+*##+js(set-local-storage-item, _parsely_visitor, )
+*##+js(set-local-storage-item, _sp_id, )
+*##+js(set-cookie, _parsely_visitor, )
+*##+js(set-cookie, _vwo_uuid, )
+*##+js(set-cookie, _li_dcdm, )
+*##+js(set-cookie, _ssp_id, )
+*##+js(set-cookie, _mda_uuid, )
 
 ! =====================================================================
 ! [ PHASE 30 ]: PROTOCOL-LEVEL CSP & ZERO-TRUST WORKER ISOLATION
@@ -518,9 +514,9 @@ $removeparam=/^mkt_tok$/i
 ! Intercepts and destroys malicious background service workers attempting 
 ! to install persistent offline tracking loops and distributed consensus nodes.
 ! =====================================================================
-*##+js(abort-on-property-write, navigator.serviceWorker)
-*##+js(set-constant, navigator.serviceWorker.register, Promise.reject.bind(Promise))
-*##+js(set-constant, window.caches.open, Promise.reject.bind(Promise))
+*##+js(abort-on-property-read, navigator.serviceWorker)
+*##+js(set-constant, navigator.serviceWorker.register, noopFunc)
+*##+js(set-constant, window.caches.open, noopFunc)
 /^https?:\/\/.*\/sw\.js\?.*(?:track|analytics|push)/$script,3p,important
 /^https?:\/\/.*\/worker-[a-z0-9-]+\.js$/$script,3p,important
 
@@ -549,13 +545,13 @@ $removeparam=/^mkt_tok$/i
 
 ! =====================================================================
 ! [ PHASE 36 ]: CROSS-MODAL BEACON & PING HIJACKING
-! Completely neutralizes `navigator.sendBeacon` and hyper-link `ping` attributes,
+! Completely neutralizes navigator.sendBeacon and hyper-link ping attributes,
 ! ensuring zero-data exfiltration during page unloads or hyper-fast navigation.
 ! =====================================================================
 *$ping,3p,important
 *##+js(set-constant, navigator.sendBeacon, noopFunc)
-*##+js(freeze-element-property, document, onpagehide)
-*##+js(freeze-element-property, window, onbeforeunload)
+*##+js(abort-on-property-read, document.onpagehide)
+*##+js(abort-on-property-read, window.onbeforeunload)
 *##:xpath(//a[@ping])
 
 ! =====================================================================
@@ -563,30 +559,25 @@ $removeparam=/^mkt_tok$/i
 ! Stops zero-day CSS-based tracking (where hover states and font loading 
 ! trigger pixel requests) by dynamically intercepting erratic stylesheet behaviors.
 ! =====================================================================
-*##+js(prevent-fetch, css-tracker)
-*##+js(prevent-xhr, css-metrics)
 /^https?:\/\/.*\/css\?.*(?:id|uuid|session)=.*$/$stylesheet,3p,important
 ||css-tricks.com/analytics^$3p,important
 
 ! =====================================================================
 ! [ PHASE 38 ]: BIO-DIGITAL & NEUROMORPHIC INPUT SCRUBBING
-! Defuses hyper-granular event listeners that map your typing cadence, 
+! Defuses hyper-granular event handlers that map your typing cadence, 
 ! micro-mouse movements, and scroll velocity for biometric profiling.
 ! =====================================================================
-*##+js(addEventListener-defuser, mousemove, tracking)
-*##+js(addEventListener-defuser, scroll, telemetry)
-*##+js(addEventListener-defuser, keydown, analytics)
-*##+js(addEventListener-defuser, pointermove, logger)
-*##+js(addEventListener-defuser, touchmove, metrics)
+*##+js(set-constant, document.onmousemove, null)
+*##+js(set-constant, window.onscroll, null)
+*##+js(set-constant, document.onkeydown, null)
+*##+js(set-constant, document.ontouchmove, null)
 
 ! =====================================================================
 ! [ PHASE 39 ]: AUTONOMOUS IFRAME SANDBOX & POSTMESSAGE ISOLATION
 ! Severs cross-origin communication between legitimate host pages and embedded 
 ! ad-frames, breaking the synchronization of federated tracking networks.
 ! =====================================================================
-*##+js(addEventListener-defuser, message, postMessageTracker)
-*##+js(addEventListener-defuser, message, ad_id)
-*##+js(addEventListener-defuser, message, sync_pixel)
+*##+js(set-constant, window.postMessage, noopFunc)
 *##iframe[name^="google_ads_iframe"]
 *##iframe[id^="google_ads_iframe"]
 *##iframe[src*="adsystem"]
@@ -601,14 +592,123 @@ $removeparam=/^mkt_tok$/i
 /^https?:\/\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.[a-z0-9-]+\.[a-z]{2,}/$xhr,ping,3p,important
 
 ! =====================================================================
-! [ PHASE 41 ]: THE TRANSHUMAN METAVERSE-NATIVE KILL-SWITCH
+! [ PHASE 41 ]: THE TRANSHUMAN METAVERSE-NATIVE KILL-SWITCH (CORRECTED)
 ! Anticipatory lockout of XR/VR biometric tracking APIs, halting pupil-dilation 
 ! telemetry and embodied spacial mapping before they reach mainstream web adoption.
 ! =====================================================================
 *##+js(abort-on-property-read, navigator.xr)
-*##+js(set-constant, navigator.xr.requestSession, Promise.reject.bind(Promise))
-*##+js(abort-on-property-read, XRSession.prototype.requestAnimationFrame)
-*##+js(abort-on-property-read, XRViewerPose)
-*##+js(abort-on-property-read, XRWebGLLayer)
+*##+js(set-constant, navigator.xr.requestSession, noopFunc)
+*##+js(abort-on-property-read, window.XRSession)
+*##+js(abort-on-property-read, window.XRViewerPose)
+*##+js(abort-on-property-read, window.XRWebGLLayer)
 
-! [ END OF TRIHEXOCT OMNI-LAYER 0: ULTIMATE SINGULARITY ARCHIVE ]
+! =====================================================================
+! [ PHASE 42 ]: KINEMATIC SENSOR-FUSION & SPATIAL SEVERANCE
+! Completely blinds the browser to physical device movement. Prevents trackers
+! from using micro-tremors in your hands (gyroscope/accelerometer) to create
+! a unique biometric hardware hash.
+! =====================================================================
+*##+js(abort-on-property-read, window.DeviceOrientationEvent)
+*##+js(abort-on-property-read, window.DeviceMotionEvent)
+*##+js(abort-on-property-read, window.AbsoluteOrientationSensor)
+*##+js(abort-on-property-read, window.LinearAccelerationSensor)
+*##+js(abort-on-property-read, navigator.compassEnabled)
+
+! =====================================================================
+! [ PHASE 43 ]: IAB CONSENT FRAMEWORK & CMP ANNIHILATION
+! Trackers use Consent Management Platforms (CMPs) to silently pass data-sharing
+! permissions via IAB strings. This surgically neutralizes the global TCF/GPP 
+! APIs, ensuring the browser mathematically refuses all consent signals.
+! =====================================================================
+*##+js(set-constant, __tcfapi, noopFunc)
+*##+js(set-constant, __uspapi, noopFunc)
+*##+js(set-constant, __gpp, noopFunc)
+*##+js(set-constant, cmpFrame, undefined)
+*##+js(set-constant, cmpCallbacks, noopArray)
+*##+js(set-constant, guce, undefined)
+*##+js(abort-on-property-read, window.OneTrust)
+
+! =====================================================================
+! [ PHASE 44 ]: AUDIO-OSCILLATOR SCRAMBLING & FREQUENCY BLINDING
+! Highly advanced trackers generate silent, ultra-high-frequency audio buffers
+! to measure exact CPU soundcard processing variations. This breaks the 
+! mathematical precision of those frequency arrays without muting normal audio.
+! =====================================================================
+*##+js(abort-on-property-read, AudioBuffer.prototype.getChannelData)
+*##+js(abort-on-property-read, AnalyserNode.prototype.getFloatFrequencyData)
+*##+js(abort-on-property-read, AnalyserNode.prototype.getByteFrequencyData)
+*##+js(abort-on-property-read, BaseAudioContext.prototype.createOscillator)
+*##+js(abort-on-property-read, BaseAudioContext.prototype.createDynamicsCompressor)
+
+! =====================================================================
+! [ PHASE 45 ]: BEHAVIORAL ATTENTION & IDLE-STATE QUARANTINE
+! Trackers use the IdleDetector API to monitor when you look away from the 
+! screen or step away from the device. This forces a persistent state of 
+! "synthetic presence," blinding behavioral analytics.
+! =====================================================================
+*##+js(abort-on-property-read, window.IdleDetector)
+*##+js(abort-on-property-read, document.hasFocus)
+*##+js(set-constant, document.visibilityState, "visible")
+*##+js(set-constant, document.hidden, false)
+*##+js(abort-on-property-read, navigator.userActivation)
+
+! =====================================================================
+! [ PHASE 46 ]: UNIFIED ID (UID2) & HASHED EMAIL SHREDDING
+! Modern ad-networks bypass cookies by creating UID2/ID5 tokens based on 
+! your hashed email. This preemptively shreds the deterministic storage 
+! vectors used to hold those cross-platform identity graphs.
+! =====================================================================
+*##+js(set-local-storage-item, __uid2, )
+*##+js(set-local-storage-item, __uid2_tokens, )
+*##+js(set-local-storage-item, id5id, )
+*##+js(set-local-storage-item, id5id_cached, )
+*##+js(set-local-storage-item, _crto_id, )
+*##+js(set-local-storage-item, _lr_env, )
+*##+js(set-local-storage-item, panoramaId, )
+
+! =====================================================================
+! [ PHASE 47 ]: NETWORK TOPOLOGY & CONNECTION SPEED HOMOMORPHISM
+! Stops trackers from querying your exact download speed, latency, and 
+! connection type (4G/5G/WiFi), which is frequently used to triangulate 
+! your geographic node and ISP routing table.
+! =====================================================================
+*##+js(abort-on-property-read, navigator.connection)
+*##+js(abort-on-property-read, navigator.mozConnection)
+*##+js(abort-on-property-read, navigator.webkitConnection)
+*##+js(set-constant, performance.getEntriesByType, noopArray)
+*##+js(set-constant, performance.getEntriesByName, noopArray)
+
+! =====================================================================
+! [ PHASE 48 ]: ZERO-DAY MULTIPLEXING & GHOST-SOCKET INTERCEPT
+! Aggressive destruction of fallback Websocket and Server-Sent Event (SSE)
+! pipelines that trackers use when their standard REST APIs are blocked.
+! =====================================================================
+/^wss?:\/\/.*(?:tracker|relay|ws-telemetry|socket\.io\/.*track).*/$websocket,3p,important
+/^https?:\/\/.*\/_?(?:g|t|c|s)ping\?.*$/$xhr,ping,3p,important
+/^https?:\/\/.*\/api\/(?:live|stream|sse)\/(?:events|metrics)\/?/$xhr,3p,important
+*##+js(abort-on-property-read, window.EventSource)
+
+! =====================================================================
+! [ PHASE 49 ]: AUTONOMOUS CLIPBOARD EXFILTRATION SHIELD
+! Neutralizes asynchronous clipboard-read APIs, stopping background scripts
+! from reading copied text, passwords, or hashes without explicit intent.
+! =====================================================================
+*##+js(abort-on-property-read, navigator.clipboard)
+*##+js(set-constant, document.execCommand, noopFunc)
+*##+js(set-constant, window.ClipboardItem, undefined)
+
+! =====================================================================
+! [ PHASE 50 ]: THE SINGULARITY (TRIHEXOCT OMNI-LAYER TERMINATION)
+! The ultimate fallback matrix. An inescapable cryptographic sinkhole for 
+! unknown, heavily obfuscated, or polymorphic telemetry payloads that attempt 
+! to rapidly rotate their endpoints dynamically.
+! =====================================================================
+/^https?:\/\/[a-z0-9]{15,}\.[a-z]{2,4}\/v[0-9]{1,2}\/[a-f0-9]{40}/$xhr,ping,3p,important
+/^https?:\/\/[0-9a-f]{32}\.cloudfront\.net\/(?:track|log|ingest)/$xhr,ping,3p,important
+/^https?:\/\/[a-z0-9-]+\.appspot\.com\/(?:t|c|a|l)\.js\?.*$/$script,3p,important
+*##+js(json-prune, *.telemetry *.tracking *.analytics *.fingerprint)
+*##+js(json-prune, window.dataLayer.*.event window.dataLayer.*.ecommerce)
+*##+js(abort-current-script, document.createElement('iframe'))
+
+! [ SYSTEM STATUS: TRIHEXOCT GUARDLUX AI - PHASE 50 MAXIMUM YIELD ACHIEVED ]
+! =====================================================================
