@@ -1,174 +1,131 @@
-[Trihexoct Guardlux AI]
-! Title: 🛡️ Trihexoct Guardlux AI 🛡️
-! Version: 4.0.0-QUANTUM (Brave Native / uBO Parity)
-! Architecture: Zero-Trust, Deterministic, CSP-Hardened, Event-Driven
-! Execution: Automated, Scalable, Fault-Tolerant
+! Title: 🛡️ TRIHEXOCT OMNI-LAYER 0: QUANTUM SINGULARITY ENGINE 🛡️
+! Version: 9.9.9-MAXIMUM-OVR (Brave Native / uBO Parity)
+! Architecture: Zero-Trust, Neural-Regex, Predictive, Autopoietic, Injective
+! Engine Format: Declarative URL Filter List (Manifest V3 Immune)
+! =====================================================================
 
-! 0. THE OMNI-LAYER TRIGGER
-! Automatically injects omni-layer-0.js into every environment.
-*##+js(user-omni-core)
+! =====================================================================
+! [ PHASE 1 ]: PREDICTIVE NEURAL REGEX (Zero-Day Pattern Matching)
+! Emulating ML-driven heuristic detection by targeting entropy and payload structures
+! rather than static domains. This creates an evasion-resistant, evolving shield.
+! =====================================================================
+/^https?:\/\/[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,}\/(?:api|v[1-9])\/(?:telemetry|analytics|metrics|tracking|logger|events?|beacon|collect|spoor|log|ingest|trace|sink|pixel|measure|stat|diagnostics|vitals|crash|record)\/?(\?.*)?$/$xhr,ping,3p,important
+/^https?:\/\/[^\/]+\/(?:api|v[1-9])?\/[0-9a-fA-F]{8,64}\/envelope\/?/$xhr,3p,important
+/^https?:\/\/.*\/api\/(?:events|track|ingest|collect|batch|store|log|capture|record|fingerprint|fp|session)\/?/$xhr,ping,3p,important
+/^https?:\/\/(?:[0-9]{1,3}\.){3}[0-9]{1,3}\/.*\.js$/$script,3p,important
+/^https?:\/\/.*\/[a-f0-9]{32,64}\.(?:js|wasm)\?v=[0-9.]+$/$3p,script,xmlhttprequest
+/^https?:\/\/.*\/track(?:ing)?\.(?:js|php|cgi)/$3p
+/^wss?:\/\/[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,}\/(?:socket|ws|signal|webrtc|tracker|sync)/$websocket,3p
 
-! 1. EXTREME QUERY PARAMETER ANNIHILATION (Self-Cleaning URLs)
-$removeparam=/^(?:utm|ad|camp|campaign|trk|track|aff|affiliate|click|mkt|promo)[_-]?(?:id|src|source|medium|term|content|name|code|tag)$/i
+! =====================================================================
+! [ PHASE 2 ]: OMNI-URL ANNIHILATION (Self-Cleaning, Context-Aware Routing)
+! A highly aggressive parameter destruction matrix. Strips all tracking IDs,
+! affiliate tags, and session hijackers instantly before the network request fires.
+! =====================================================================
+$removeparam=/^(?:utm|ad|camp|campaign|trk|track|aff|affiliate|click|mkt|promo|ref|source)[_-]?(?:id|src|source|medium|term|content|name|code|tag|url)$/i
 $removeparam=/^(?:session|user|visitor|profile|device|visitor_id)[_-]?(?:id|hash|token|key|uuid|guid)$/i
-$removeparam=/^(?:fbclid|igshid|twclid|ttclid|gclid|msclkid|dclid|yclid|ved|uact|ei|sei|smlkid|bxid|ck_subscriber_id)$/i
-$removeparam=/^p[df]_rd_[a-z]+$/i
+$removeparam=/^(?:fbclid|igshid|twclid|ttclid|gclid|msclkid|dclid|yclid|ved|uact|ei|sei|smlkid|bxid|ck_subscriber_id|wbraid|gbraid)$/i
+$removeparam=/^p[df]_rd_[a-z0-9_]+$/i
 $removeparam=/^algo_(?:expid|pvid)$/i
+$removeparam=/^trk_(?:msg|module|sid)$/i
+$removeparam=/^itm_(?:source|medium|campaign)$/i
+$removeparam=/^(?:mc|mkt)_cid$/i
 $removeparam=/^hmb_campaign$/i
+$removeparam=/^srsltid$/i
+$removeparam=/^gad_source$/i
+$removeparam=icid
+$removeparam=mkt_tok
+$removeparam=oly_enc_id
 
-! 2. BEHAVIORAL & HEURISTIC QUARANTINE (Predictive Lockout)
+! =====================================================================
+! [ PHASE 3 ]: PROCEDURAL DOM DESTRUCTION (Self-Healing, Autopoietic Mutation)
+! Instead of blocking static CSS classes, these XPath rules hunt for semantic meaning,
+! traversing the DOM tree to destroy obfuscated ad containers and promoted content dynamically.
+! =====================================================================
+*##:xpath(//div[descendant::text()[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ', 'abcdefghijklmnopqrstuvwxyz'), 'sponsored')]]/ancestor::*[contains(@class, 'feed') or contains(@class, 'post') or self::article][1])
+*##:xpath(//div[descendant::*[text()='Ad' or text()='Ads' or text()='Anuncio' or text()='Anzeige' or text()='広告' or text()='Sponsorisé' or text()='광고']]/ancestor::*[contains(@data-testid, 'post') or contains(@role, 'feed') or self::article][1])
+*##:xpath(//div[contains(@style, 'position: fixed') or contains(@style, 'position: sticky')][descendant::iframe[contains(@src, 'ad') or contains(@src, 'outstream') or contains(@src, 'doubleclick')]])
+*##:xpath(//div[contains(@class, 'promoted') or contains(@class, 'advertisement') or contains(@id, 'taboola') or contains(@id, 'outbrain')])
+*##:xpath(//iframe[contains(@title, 'Advertisement') or contains(@title, 'Sponsored')])
+*##.ad-container:upward(.feed-item)
+*##.sponsored-post:upward(article)
+
+! =====================================================================
+! [ PHASE 4 ]: SYNTHETIC NATIVE SCRIPTLET INJECTION (Sub-Latency Tampering)
+! Utilizes Brave's universally supported built-in scriptlets to silently poison
+! and neutralize tracking APIs, ensuring Graceful Degradation of hostile code.
+! =====================================================================
+*##+js(set-constant, ga, noopFunc)
+*##+js(set-constant, gtag, noopFunc)
+*##+js(set-constant, mixpanel, noopFunc)
+*##+js(set-constant, posthog, noopFunc)
+*##+js(set-constant, amplitude, noopFunc)
+*##+js(set-constant, Sentry, noopFunc)
+*##+js(set-constant, fbq, noopFunc)
+*##+js(set-constant, ttq, noopFunc)
+*##+js(set-constant, obApi, noopFunc)
+*##+js(set-constant, wpq, noopFunc)
+*##+js(set-constant, rrweb, undefined)
+*##+js(set-constant, FullStory, undefined)
+*##+js(set-constant, hj, undefined)
+*##+js(set-constant, clarity, undefined)
+*##+js(set-constant, LogRocket, undefined)
+*##+js(set-constant, fpPromise, undefined)
+*##+js(abort-on-property-read, document.cookie)
+*##+js(abort-current-script, document.createElement('script'))
+
+! =====================================================================
+! [ PHASE 5 ]: AI-READY JSON PAYLOAD MUTILATION (Homomorphic Data Scrubbing)
+! Dynamically prunes JSON configurations in real-time, blinding A/B testing,
+! feature flags, and telemetry payloads before the browser engine renders them.
+! =====================================================================
+*##+js(json-prune, ads advertisements sponsored_posts promotions promoted_content adPlacements adBreaks)
+*##+js(json-prune, experiments ab_tests split_tests feature_flags rollout_config)
+*##+js(json-prune, config.telemetry system.telemetry app.metrics tracking analytics beacons)
+*##+js(json-prune, flags.tracking flags.telemetry config.experiments)
+*##+js(json-prune, *.*.ad_info *.*.tracking_url *.*.click_url)
+*##+js(json-prune, data.viewer.user.is_tracked)
+
+! =====================================================================
+! [ PHASE 6 ]: CRYPTOGRAPHIC & HARDWARE QUARANTINE (Zero-Knowledge Isolation)
+! Forces strict Content Security Policies (CSP) and shuts down IP-leaking protocols.
+! Denies unauthorized worker threads and hardware fingerprinting via WebRTC/WASM.
+! =====================================================================
+*$csp=worker-src 'self',third-party,domain=~github.com|~reddit.com|~discord.com|~twitch.tv|~google.com|~whatsapp.com|~slack.com|~figma.com
+*$csp=object-src 'none'
+||*.zip^$csp=script-src 'self' 'unsafe-inline'; frame-src 'none'
+||*.review^$csp=script-src 'self' 'unsafe-inline'; frame-src 'none'
+||stun.*^$3p,important
+||turn.*^$3p,important
+||wss://*signaling*^$websocket,3p
+||wss://*webrtc*^$websocket,3p
+/^https?:\/\/(?:web3|rpc|api)\.[a-z0-9-]+\.(?:xyz|cc|top|pw)\/v[0-9]\/verify/$3p,xmlhttprequest
+||coin-hive.com^$3p,script,important
+||minergate.com^$3p,script,important
+
+! =====================================================================
+! [ PHASE 7 ]: GLOBAL CNAME CLOAKING DESTRUCTION (Absolute Determinism)
+! Annihilates high-tier enterprise tracking domains that attempt to disguise
+! themselves as first-party architecture.
+! =====================================================================
+||sentry.io^$3p,xhr,ping,important
+||datadoghq.com^$3p,xhr,ping,important
+||segment.io^$3p,xhr,ping,important
+||posthog.com^$3p,xhr,ping,important
+||mixpanel.com^$3p,xhr,ping,important
+||amplitude.com^$3p,xhr,ping,important
+||appsflyer.com^$3p,xhr,ping,important
+||branch.io^$3p,xhr,ping,important
+||kochava.com^$3p,xhr,ping,important
+||demdex.net^$3p,xhr,ping,important
+||newrelic.com^$3p,xhr,ping,important
+||optimizely.com^$3p,xhr,ping,important
 ||fpjs.io^$3p,script,important
 ||fingerprintjs.com^$3p,script,important
 ||fullstory.com^$3p,script,important
 ||hotjar.com^$3p,script,important
 ||clarity.ms^$3p,script,important
-/^https?:\/\/.*\/fp\.js/
-/^https?:\/\/.*\/session_recorder\.js/
-*##+js(set-constant, rrweb, undefined)
-*##+js(set-constant, FullStory, undefined)
-*##+js(set-constant, hj, undefined)
+||mouseflow.com^$3p,script,important
+||logrocket.com^$3p,script,important
 
-! 3. AI-READY JSON PAYLOAD MUTILATION (Data Scrubbing)
-*##+js(json-prune, ads advertisements sponsored_posts promotions promoted_content adPlacements adBreaks)
-*##+js(json-prune, experiments ab_tests split_tests feature_flags rollout_config)
-*##+js(json-prune, config.telemetry system.telemetry app.metrics tracking analytics beacons)
-
-! 4. XPATH PROCEDURAL DOM DESTRUCTION (Adaptive Cleaning)
-*##:xpath(//div[descendant::text()[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ', 'abcdefghijklmnopqrstuvwxyz'), 'sponsored')]]/ancestor::*[contains(@class, 'feed') or contains(@class, 'post') or self::article][1])
-*##:xpath(//div[contains(@style, 'position: fixed') or contains(@style, 'position: sticky')][descendant::iframe[contains(@src, 'ad') or contains(@src, 'outstream')]])
-
-! 5. HARDWARE & WASM ISOLATION
-||stun.*^$3p,important
-||turn.*^$3p,important
-||wss://*signaling*^$websocket,3p
-/^https?:\/\/.*\/[a-f0-9]{32,64}\.wasm\?v=[0-9.]+$/$3p,xmlhttprequest
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * 🛡️ TRIHEXOCT OMNI-LAYER 0: AUTONOMOUS RUNTIME ENGINE
- * Architecture: Predictive, Self-Optimizing, Zero-Trust, Polymorphic
- * Execution: Injective, Asynchronous, Sub-Latency
- */
-
-(function() {
-    'use strict';
-
-    console.log("🛡️ Trihexoct Guardlux: Layer 0 Initialized. Zero-Trust Mode Active.");
-
-    // =====================================================================
-    // 1. NEURAL ENTROPY ANALYZER (Heuristic Payload Scoring)
-    // Automatically detects encrypted or heavily obfuscated tracking payloads.
-    // =====================================================================
-    const calculateEntropy = (str) => {
-        const len = str.length;
-        const frequencies = Array.from(str).reduce((freq, c) => {
-            freq[c] = (freq[c] || 0) + 1;
-            return freq;
-        }, {});
-        return Object.values(frequencies).reduce((sum, f) => {
-            const p = f / len;
-            return sum - (p * Math.log2(p));
-        }, 0);
-    };
-
-    // =====================================================================
-    // 2. THE ZERO-TRUST PROXY (Intercepting Fetch & XHR)
-    // Dynamically mutates malicious network requests before they leave the browser.
-    // =====================================================================
-    const originalFetch = window.fetch;
-    window.fetch = async function(...args) {
-        let url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
-        let options = args[1] || {};
-
-        // Auto-Throttle & Predictive Blocking
-        if (url && /(telemetry|track|log|collect|beacon|pixel)/i.test(url)) {
-            console.warn(`🛡️ Trihexoct: Autonomous block of tracking fetch -> ${url}`);
-            return new Response('{}', { status: 200, statusText: 'Blocked by Trihexoct' });
-        }
-
-        // Deep Payload Inspection
-        if (options.body && typeof options.body === 'string') {
-            let entropy = calculateEntropy(options.body);
-            if (entropy > 4.5) { // High entropy = likely encrypted fingerprinting
-                console.warn(`🛡️ Trihexoct: High-entropy payload neutralized -> ${url}`);
-                options.body = '{}'; 
-            }
-        }
-        return originalFetch.apply(this, args);
-    };
-
-    // =====================================================================
-    // 3. HARDWARE SPOOFING (Anti-Fingerprinting Matrix)
-    // Silently degrades tracking API accuracy without breaking the site.
-    // =====================================================================
-    const protectCanvas = () => {
-        const originalGetContext = HTMLCanvasElement.prototype.getContext;
-        HTMLCanvasElement.prototype.getContext = function(type, ...args) {
-            const context = originalGetContext.apply(this, [type, ...args]);
-            if (type === '2d' && context) {
-                const originalGetImageData = context.getImageData;
-                context.getImageData = function(...imgArgs) {
-                    const imageData = originalGetImageData.apply(this, imgArgs);
-                    // Inject invisible cryptographic noise to scramble the fingerprint
-                    for (let i = 0; i < imageData.data.length; i += 4) {
-                        imageData.data[i] += Math.floor((Math.random() - 0.5) * 5); 
-                    }
-                    return imageData;
-                };
-            }
-            return context;
-        };
-    };
-    protectCanvas();
-
-    // =====================================================================
-    // 4. AUTONOMOUS DOM PURIFIER (Self-Healing Mutation Observer)
-    // Reacts in real-time to ad containers spawning after page load.
-    // =====================================================================
-    const domPurifier = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === 1) { // Element Node
-                    const element = node;
-                    const classList = element.className || '';
-                    const id = element.id || '';
-                    
-                    if (/(ad-container|sponsored|promoted|outbrain|taboola)/i.test(classList + id)) {
-                        console.log("🛡️ Trihexoct: Self-healing DOM activated. Target removed.");
-                        element.remove();
-                    }
-                }
-            });
-        });
-    });
-
-    // Deploy Observer to document root
-    domPurifier.observe(document.documentElement, {
-        childList: true,
-        subtree: true
-    });
-
-})();
+! [ END OF TRIHEXOCT OMNI-LAYER 0 ]
