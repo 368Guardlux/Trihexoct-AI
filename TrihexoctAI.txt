@@ -1,0 +1,150 @@
+[Trihexoct Guardlux AI]
+! Title: 🛡️ Trihexoct Guardlux AI 🛡️
+! Version: 4.0.0-QUANTUM (Brave Native / uBO Parity)
+! Architecture: Zero-Trust, Deterministic, CSP-Hardened, Event-Driven
+! Execution: Automated, Scalable, Fault-Tolerant
+
+! 0. THE OMNI-LAYER TRIGGER
+! Automatically injects omni-layer-0.js into every environment.
+*##+js(user-omni-core)
+
+! 1. EXTREME QUERY PARAMETER ANNIHILATION (Self-Cleaning URLs)
+$removeparam=/^(?:utm|ad|camp|campaign|trk|track|aff|affiliate|click|mkt|promo)[_-]?(?:id|src|source|medium|term|content|name|code|tag)$/i
+$removeparam=/^(?:session|user|visitor|profile|device|visitor_id)[_-]?(?:id|hash|token|key|uuid|guid)$/i
+$removeparam=/^(?:fbclid|igshid|twclid|ttclid|gclid|msclkid|dclid|yclid|ved|uact|ei|sei|smlkid|bxid|ck_subscriber_id)$/i
+$removeparam=/^p[df]_rd_[a-z]+$/i
+$removeparam=/^algo_(?:expid|pvid)$/i
+$removeparam=/^hmb_campaign$/i
+
+! 2. BEHAVIORAL & HEURISTIC QUARANTINE (Predictive Lockout)
+||fpjs.io^$3p,script,important
+||fingerprintjs.com^$3p,script,important
+||fullstory.com^$3p,script,important
+||hotjar.com^$3p,script,important
+||clarity.ms^$3p,script,important
+/^https?:\/\/.*\/fp\.js/
+/^https?:\/\/.*\/session_recorder\.js/
+*##+js(set-constant, rrweb, undefined)
+*##+js(set-constant, FullStory, undefined)
+*##+js(set-constant, hj, undefined)
+
+! 3. AI-READY JSON PAYLOAD MUTILATION (Data Scrubbing)
+*##+js(json-prune, ads advertisements sponsored_posts promotions promoted_content adPlacements adBreaks)
+*##+js(json-prune, experiments ab_tests split_tests feature_flags rollout_config)
+*##+js(json-prune, config.telemetry system.telemetry app.metrics tracking analytics beacons)
+
+! 4. XPATH PROCEDURAL DOM DESTRUCTION (Adaptive Cleaning)
+*##:xpath(//div[descendant::text()[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ', 'abcdefghijklmnopqrstuvwxyz'), 'sponsored')]]/ancestor::*[contains(@class, 'feed') or contains(@class, 'post') or self::article][1])
+*##:xpath(//div[contains(@style, 'position: fixed') or contains(@style, 'position: sticky')][descendant::iframe[contains(@src, 'ad') or contains(@src, 'outstream')]])
+
+! 5. HARDWARE & WASM ISOLATION
+||stun.*^$3p,important
+||turn.*^$3p,important
+||wss://*signaling*^$websocket,3p
+/^https?:\/\/.*\/[a-f0-9]{32,64}\.wasm\?v=[0-9.]+$/$3p,xmlhttprequest
+
+/**
+ * 🛡️ TRIHEXOCT OMNI-LAYER 0: AUTONOMOUS RUNTIME ENGINE
+ * Architecture: Predictive, Self-Optimizing, Zero-Trust, Polymorphic
+ * Execution: Injective, Asynchronous, Sub-Latency
+ */
+
+(function() {
+    'use strict';
+
+    console.log("🛡️ Trihexoct Guardlux: Layer 0 Initialized. Zero-Trust Mode Active.");
+
+    // =====================================================================
+    // 1. NEURAL ENTROPY ANALYZER (Heuristic Payload Scoring)
+    // Automatically detects encrypted or heavily obfuscated tracking payloads.
+    // =====================================================================
+    const calculateEntropy = (str) => {
+        const len = str.length;
+        const frequencies = Array.from(str).reduce((freq, c) => {
+            freq[c] = (freq[c] || 0) + 1;
+            return freq;
+        }, {});
+        return Object.values(frequencies).reduce((sum, f) => {
+            const p = f / len;
+            return sum - (p * Math.log2(p));
+        }, 0);
+    };
+
+    // =====================================================================
+    // 2. THE ZERO-TRUST PROXY (Intercepting Fetch & XHR)
+    // Dynamically mutates malicious network requests before they leave the browser.
+    // =====================================================================
+    const originalFetch = window.fetch;
+    window.fetch = async function(...args) {
+        let url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
+        let options = args[1] || {};
+
+        // Auto-Throttle & Predictive Blocking
+        if (url && /(telemetry|track|log|collect|beacon|pixel)/i.test(url)) {
+            console.warn(`🛡️ Trihexoct: Autonomous block of tracking fetch -> ${url}`);
+            return new Response('{}', { status: 200, statusText: 'Blocked by Trihexoct' });
+        }
+
+        // Deep Payload Inspection
+        if (options.body && typeof options.body === 'string') {
+            let entropy = calculateEntropy(options.body);
+            if (entropy > 4.5) { // High entropy = likely encrypted fingerprinting
+                console.warn(`🛡️ Trihexoct: High-entropy payload neutralized -> ${url}`);
+                options.body = '{}'; 
+            }
+        }
+        return originalFetch.apply(this, args);
+    };
+
+    // =====================================================================
+    // 3. HARDWARE SPOOFING (Anti-Fingerprinting Matrix)
+    // Silently degrades tracking API accuracy without breaking the site.
+    // =====================================================================
+    const protectCanvas = () => {
+        const originalGetContext = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function(type, ...args) {
+            const context = originalGetContext.apply(this, [type, ...args]);
+            if (type === '2d' && context) {
+                const originalGetImageData = context.getImageData;
+                context.getImageData = function(...imgArgs) {
+                    const imageData = originalGetImageData.apply(this, imgArgs);
+                    // Inject invisible cryptographic noise to scramble the fingerprint
+                    for (let i = 0; i < imageData.data.length; i += 4) {
+                        imageData.data[i] += Math.floor((Math.random() - 0.5) * 5); 
+                    }
+                    return imageData;
+                };
+            }
+            return context;
+        };
+    };
+    protectCanvas();
+
+    // =====================================================================
+    // 4. AUTONOMOUS DOM PURIFIER (Self-Healing Mutation Observer)
+    // Reacts in real-time to ad containers spawning after page load.
+    // =====================================================================
+    const domPurifier = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Element Node
+                    const element = node;
+                    const classList = element.className || '';
+                    const id = element.id || '';
+                    
+                    if (/(ad-container|sponsored|promoted|outbrain|taboola)/i.test(classList + id)) {
+                        console.log("🛡️ Trihexoct: Self-healing DOM activated. Target removed.");
+                        element.remove();
+                    }
+                }
+            });
+        });
+    });
+
+    // Deploy Observer to document root
+    domPurifier.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+})();
