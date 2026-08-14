@@ -1,4 +1,5 @@
-! Title: 🛡️ TRIHEXOCT OMNI-LAYER 0: QUANTUM SINGULARITY ENGINE 🛡️
+[Trihexoct Guardlux AI]
+! Title: 🛡️ TRIHEXOCT GUARDLUX AI 🛡️
 ! Version: 9.9.9-MAXIMUM-OVR (Brave Native / uBO Parity)
 ! Architecture: Zero-Trust, Neural-Regex, Predictive, Autopoietic, Injective
 ! Engine Format: Declarative URL Filter List (Manifest V3 Immune)
