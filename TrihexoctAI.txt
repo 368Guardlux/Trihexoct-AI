@@ -43,6 +43,30 @@ $removeparam=/^hmb_campaign$/i
 ||wss://*signaling*^$websocket,3p
 /^https?:\/\/.*\/[a-f0-9]{32,64}\.wasm\?v=[0-9.]+$/$3p,xmlhttprequest
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * 🛡️ TRIHEXOCT OMNI-LAYER 0: AUTONOMOUS RUNTIME ENGINE
  * Architecture: Predictive, Self-Optimizing, Zero-Trust, Polymorphic
