@@ -710,5 +710,98 @@ $removeparam=/^mkt_tok$/i
 *##+js(json-prune, window.dataLayer.*.event window.dataLayer.*.ecommerce)
 *##+js(abort-current-script, document.createElement('iframe'))
 
-! [ SYSTEM STATUS: TRIHEXOCT GUARDLUX AI - PHASE 50 MAXIMUM YIELD ACHIEVED ]
+! =====================================================================
+! [ PHASE 51 ]: WEBCRYPTO & SUB-MILLISECOND EXECUTION PROFILING
+! Defeats complex cryptographic timing attacks where trackers measure 
+! CPU cycle execution times to generate hardware-specific hashes.
+! =====================================================================
+*##+js(abort-on-property-read, crypto.subtle)
+*##+js(abort-on-property-read, window.PerformanceObserver)
+
+! =====================================================================
+! [ PHASE 52 ]: HARDWARE, PERIPHERAL & IOT SENSOR ENUMERATION
+! Prevents silent hardware fingerprinting by severing APIs designed to 
+! scan for attached Bluetooth devices, gamepads, USBs, and serial ports.
+! =====================================================================
+*##+js(abort-on-property-read, navigator.bluetooth)
+*##+js(abort-on-property-read, navigator.usb)
+*##+js(abort-on-property-read, navigator.serial)
+*##+js(abort-on-property-read, navigator.hid)
+*##+js(abort-on-property-read, navigator.getGamepads)
+
+! =====================================================================
+! [ PHASE 53 ]: ENCRYPTED MEDIA EXTENSIONS (EME) & DRM HASH GENERATION
+! Disables low-level media keys used by DRM services. Trackers often hijack 
+! this pipeline to create unerasable hardware tokens based on secure enclaves.
+! =====================================================================
+*##+js(abort-on-property-read, navigator.requestMediaKeySystemAccess)
+*##+js(set-constant, HTMLMediaElement.prototype.setMediaKeys, noopFunc)
+*##+js(abort-on-property-read, window.MediaKeys)
+
+! =====================================================================
+! [ PHASE 54 ]: THREADED DOM MUTATION & BEHAVIORAL MONITORING
+! Kills the MutationObserver API. Nullifies advanced behavior analytics that 
+! monitor every single pixel change, scroll shift, and DOM injection in real-time.
+! =====================================================================
+*##+js(abort-on-property-read, window.MutationObserver)
+*##+js(abort-on-property-read, window.ResizeObserver)
+
+! =====================================================================
+! [ PHASE 55 ]: PERSISTENT STORAGE QUOTA EXFILTRATION
+! Trackers probe the Storage API to measure exactly how much disk space 
+! your device has, generating a persistent, mathematically unique hardware ID.
+! =====================================================================
+*##+js(abort-on-property-read, navigator.storage.estimate)
+*##+js(abort-on-property-read, navigator.storage.persist)
+*##+js(set-constant, window.indexedDB.open, noopFunc)
+
+! =====================================================================
+! [ PHASE 56 ]: CROSS-TAB BROADCAST & SHARED THREAD INTERCEPTION
+! Isolates the browser tab entirely. Prevents tracking networks from 
+! communicating between multiple open tabs to sync your identity graph.
+! =====================================================================
+*##+js(abort-on-property-read, window.SharedWorker)
+*##+js(abort-on-property-read, window.BroadcastChannel)
+*##+js(abort-on-property-read, window.MessageChannel)
+
+! =====================================================================
+! [ PHASE 57 ]: BACKGROUND SYNC & DEFERRED TELEMETRY TERMINATION
+! Destroys APIs that allow trackers to cache telemetry offline and silently 
+! upload it the next time your browser establishes a secure network connection.
+! =====================================================================
+*##+js(abort-on-property-read, ServiceWorkerRegistration.prototype.sync)
+*##+js(abort-on-property-read, ServiceWorkerRegistration.prototype.periodicSync)
+*##+js(abort-on-property-read, window.BackgroundFetchManager)
+
+! =====================================================================
+! [ PHASE 58 ]: CLOUD-NATIVE SOCKET & PUSHER SINKHOLE
+! Terminates third-party real-time pub/sub websocket connections used to 
+! pipeline behavioral data directly into cloud orchestration instances.
+! =====================================================================
+/^wss?:\/\/[a-z0-9-]+\.pusher\.com\//$websocket,3p,important
+/^wss?:\/\/.*\.ably\.io\//$websocket,3p,important
+/^wss?:\/\/.*\.firebaseio\.com\//$websocket,3p,important
+/^wss?:\/\/.*\.socket\.io\//$websocket,3p,important
+
+! =====================================================================
+! [ PHASE 59 ]: WEB-SPEECH & NEUROMORPHIC AUDIO EXFILTRATION
+! Prevents trackers from leveraging the SpeechSynthesis and Recognition APIs 
+! to fingerprint the host OS's native audio drivers and language processing chips.
+! =====================================================================
+*##+js(abort-on-property-read, window.SpeechSynthesis)
+*##+js(abort-on-property-read, window.SpeechRecognition)
+*##+js(abort-on-property-read, window.webkitSpeechRecognition)
+
+! =====================================================================
+! [ PHASE 60 ]: THE OMEGA PROTOCOL (ABSOLUTE ENTROPY SINK)
+! The terminal architecture layer. Highly optimized, lookaround-free regex 
+! designed for the Rust parser. Catches massive Base64 hashes and JSON payloads.
+! =====================================================================
+/^https?:\/\/[a-z0-9]{32,}\.[a-z0-9-]+\.[a-z]{2,}\/(?:ingest|telemetry|track|event|v1)\//$xhr,ping,3p,important
+/^https?:\/\/.*\/api\/v[0-9]\/[a-f0-9]{64}\/?/$xhr,ping,3p,important
+/^https?:\/\/.*\/.*(?:\?|&)data=[a-zA-Z0-9_-]{100,}/$xhr,ping,3p,important
+*##+js(json-prune, session.user.id session.device.hash system.hardware payload.identity)
+*##+js(json-prune, context.library.name context.userAgent payload.context)
+
+! [ SYSTEM STATUS: TRIHEXOCT GUARDLUX AI - PHASE 60 OMEGA PROTOCOL DEPLOYED ]
 ! =====================================================================
